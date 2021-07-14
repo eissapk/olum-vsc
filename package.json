@@ -42,6 +42,14 @@
       }
     ]
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eissapk/olum-vsc.git"
+  },
+  "bugs": {
+    "url": "https://github.com/eissapk/olum-vsc/issues"
+  },
+  "homepage": "https://github.com/eissapk/olum-vsc#readme",
   "scripts": {
     "postinstall": "node ./node_modules/vscode/bin/install",
     "test": "node ./node_modules/vscode/bin/test"
