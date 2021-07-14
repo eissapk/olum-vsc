@@ -1,5 +1,4 @@
 {
-  "name": "olum",
   "scopeName": "scss.injection",
   "injectionSelector": "L:text.html",
   "patterns": [

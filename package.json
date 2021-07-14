@@ -3,26 +3,20 @@
   "displayName": "olum",
   "description": "Code snippets and syntax highlighter",
   "publisher": "eissapk",
-  "icon": "assets/logo.png",
+  "icon": "./assets/logo.png",
   "author": "Eissa Saber",
   "version": "0.0.1",
-  "keywords": [
-    "html",
-    "javascript"
-  ],
   "engines": {
     "vscode": "^1.30.0"
   },
   "categories": [
-    "Programming Languages",
-    "Other",
     "Snippets",
-    "Themes"
+    "Other"
   ],
   "activationEvents": [
     "*"
   ],
-  "main": "./extension",
+  "main": "./highlighter.js",
   "contributes": {
     "grammars": [
       {

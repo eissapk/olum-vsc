@@ -12,7 +12,7 @@
 
   "Olumjs Router": {
     "prefix": "olumr",
-    "body": ["import { Olum } from \"olum\";\nimport Home from \"./views/home\";\n\nconst routes = [{ path: \"/\", comp: Home }];\n\nexport const olum = new Olum({\n  mode: \"history\",\n  root: \"/\",\n  el: \"#app\",\n  routes,\n});\n"],
+    "body": ["import { Olum } from \"olum\";\nimport Home from \"./views/home.js\";\n\nconst routes = [{ path: \"/\", comp: Home }];\n\nexport const olum = new Olum({\n  mode: \"history\",\n  root: \"/\",\n  el: \"#app\",\n  routes,\n});\n"],
     "description": "Router"
   }
 }
