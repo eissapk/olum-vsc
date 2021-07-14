@@ -3,7 +3,7 @@
   "displayName": "olum",
   "description": "Code snippets and syntax highlighter",
   "publisher": "eissapk",
-  "icon": "./assets/logo.png",
+  "icon": "assets/logo.png",
   "author": "Eissa Saber",
   "version": "0.0.1",
   "engines": {
