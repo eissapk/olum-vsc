@@ -1,0 +1,123 @@
+{
+  "name": "olum",
+  "scopeName": "scss.injection",
+  "injectionSelector": "L:text.html",
+  "patterns": [
+    {
+      "include": "#scss-style-tag"
+    },
+    {
+      "include": "#sass-style-tag"
+    }
+  ],
+  "repository": {
+    "scss-style-tag": {
+      "contentName": "source.css.scss",
+      "name": "meta.embedded.block.html",
+      "begin": "(<)(style)\\b(?=[^>]*lang=('scss'|\"scss\"))(?![^/>]*/>\\s*$)",
+      "beginCaptures": {
+        "1": {
+          "name": "punctuation.definition.tag.begin.html"
+        },
+        "2": {
+          "name": "entity.name.tag.style.html"
+        }
+      },
+      "end": "(</)(style)(>)",
+      "endCaptures": {
+        "1": {
+          "name": "punctuation.definition.tag.begin.html"
+        },
+        "2": {
+          "name": "entity.name.tag.style.html"
+        },
+        "3": {
+          "name": "punctuation.definition.tag.end.html"
+        }
+      },
+      "patterns": [
+        {
+          "include": "#attribute-name"
+        },
+        {
+          "include": "#attribute-value"
+        },
+        {
+          "include": "#source-scss"
+        }
+      ]
+    },
+    "sass-style-tag": {
+      "contentName": "source.sass",
+      "name": "meta.embedded.block.html",
+      "begin": "(<)(style)\\b(?=[^>]*lang=('sass'|\"sass\"))(?![^/>]*/>\\s*$)",
+      "beginCaptures": {
+        "1": {
+          "name": "punctuation.definition.tag.begin.html"
+        },
+        "2": {
+          "name": "entity.name.tag.style.html"
+        }
+      },
+      "end": "(</)(style)(>)",
+      "endCaptures": {
+        "1": {
+          "name": "punctuation.definition.tag.begin.html"
+        },
+        "2": {
+          "name": "entity.name.tag.style.html"
+        },
+        "3": {
+          "name": "punctuation.definition.tag.end.html"
+        }
+      },
+      "patterns": [
+        {
+          "include": "#attribute-name"
+        },
+        {
+          "include": "#attribute-value"
+        },
+        {
+          "include": "#source-sass"
+        }
+      ]
+    },
+    "attribute-name": {
+      "name": "entity.other.attribute-name.html",
+      "match": "\\b([a-zA-Z\\-:_]+)"
+    },
+    "attribute-value": {
+      "name": "string.quoted.double.html, string.quoted.single.html",
+      "match": "(\"|').*?(\"|')"
+    },
+    "source-sass": {
+      "begin": "(>)",
+      "beginCaptures": {
+        "1": {
+          "name": "punctuation.definition.tag.end.html"
+        }
+      },
+      "end": "(?=</style>)",
+      "patterns": [
+        {
+          "include": "source.sass"
+        }
+      ]
+    },
+    "source-scss": {
+      "begin": "(>)",
+      "beginCaptures": {
+        "1": {
+          "name": "punctuation.definition.tag.end.html"
+        }
+      },
+      "end": "(?=</style>)",
+      "patterns": [
+        {
+          "include": "source.css.scss"
+        }
+      ]
+    }
+  }
+}

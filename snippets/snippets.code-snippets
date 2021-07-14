@@ -1,0 +1,18 @@
+{
+  "Olumjs Component": {
+    "prefix": "olumc",
+    "body": ["<template>\n  <div class=\"${ComponentName}\"></div>\n</template>\n\n<script>\n  export default class ${ComponentName} {\n    constructor() {}\n    data() {\n      return {\n        name: \"${ComponentName}\",\n        components: {},\n        template: this.template(),\n        style: this.style(),\n        render: this.render.bind(this),\n      };\n    }\n\n    render() {}\n  }\n</script>\n\n<style lang=\"scss\">\n  .${ComponentName} {\n  }\n</style>\n"],
+    "description": "Component"
+  },
+  "Olumjs Service": {
+    "prefix": "olums",
+    "body": ["import { Service } from \"olum\";\n\nclass ${ServiceName} extends Service {\n  constructor() {\n    super(\"${ServiceName}\");\n  }\n}\n\nexport const ${ServiceName} = new ${ServiceName}();\n"],
+    "description": "Service"
+  },
+
+  "Olumjs Router": {
+    "prefix": "olumr",
+    "body": ["import { Olum } from \"olum\";\nimport Home from \"./views/home\";\n\nconst routes = [{ path: \"/\", comp: Home }];\n\nexport const olum = new Olum({\n  mode: \"history\",\n  root: \"/\",\n  el: \"#app\",\n  routes,\n});\n"],
+    "description": "Router"
+  }
+}
