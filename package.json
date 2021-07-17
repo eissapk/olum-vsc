@@ -5,9 +5,9 @@
   "publisher": "eissapk",
   "icon": "assets/logo.png",
   "author": "Eissa Saber",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "engines": {
-    "vscode": "^1.30.0"
+    "vscode": "^0.10.5"
   },
   "categories": [
     "Snippets",
@@ -44,12 +44,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/eissapk/olum-vsc.git"
+    "url": "git+https://github.com/olumjs/olum-vsc.git"
   },
   "bugs": {
-    "url": "https://github.com/eissapk/olum-vsc/issues"
+    "url": "https://github.com/olumjs/olum-vsc/issues"
   },
-  "homepage": "https://github.com/eissapk/olum-vsc#readme",
+  "homepage": "https://github.com/olumjs/olum-vsc#readme",
   "scripts": {
     "postinstall": "node ./node_modules/vscode/bin/install",
     "test": "node ./node_modules/vscode/bin/test"

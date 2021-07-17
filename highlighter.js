@@ -1,58 +1,74 @@
 const vscode = require("vscode");
 
-// highlight these components tags <App/> or <App-Nav/> in html files only 
-const regex = new RegExp("(?<=<)[A-Z]([^/>]+)(?=\/>)", "g");
-const color = "#f3b959";
-const isHTML = editor => {
-  const arr = editor.document.fileName.trim().split(".");
-  if (arr.length) {
-    const ext = arr[arr.length - 1];
-    if (/html/i.test(ext)) return true;
-  }
-  return false;
-};
+// helper
+let color = "#f3b959"; // component tag color e.g. <App/> or <App-Nav/>
+const decType = vscode.window.createTextEditorDecorationType({ color }); // must be global for acurate coloring
+const isObj = obj => !!(obj !== null && typeof obj === "object");
+const isFullArr = arr => !!(isObj(arr) && Array.isArray(arr) && arr.length);
+const isDef = val => !!(val !== undefined && val !== null);
+const isHTML = editor => editor && editor.document && (/html/i.test(editor.document.languageId) ? true : false);
 
 const highlighter = () => {
   const editor = vscode.window.activeTextEditor;
   if (isHTML(editor)) {
     const src = editor.document.getText();
-    let match;
-    const tagInfo = {
-      decChar: {
-        chars: [],
-        decorator: vscode.window.createTextEditorDecorationType({ color }),
-      },
-    };
-    vscode.window.setStatusBarMessage("");
+    let chars = [];
+    let linesArr = src.split("\n");
 
-    while (match = regex.exec(src)) {
-      const splited = match[0].split('"');
-      let single_lengths = 0;
-      if (splited.length) {
-        splited.forEach((single, i) => {
-          if (i % 2 === 0) {
-            const doc = editor.document;
-            const start = doc.positionAt(match.index + single_lengths);
-            const end = doc.positionAt(match.index + single_lengths + single.length);
-            const range = new vscode.Range(start, end);
-            tagInfo.decChar.chars.push(range);
+    // detect template tag
+    let delimiters = [];
+    const openTempRegex = new RegExp(`<template>`, "gi");
+    const endTempRegex = new RegExp(`<\\/template>`, "gi");
+    linesArr.find((item, index) => (openTempRegex.test(item) ? delimiters.push(index) : null));
+    linesArr.find((item, index) => (endTempRegex.test(item) ? delimiters.push(index) : null));
+    // console.warn(linesArr);
+    // console.warn(delimiters);
+
+    // if we are inside template tag
+    if (delimiters.length === 2) {
+      const [ind1, ind2] = delimiters;
+      const newLinesArr = linesArr.map((item, index) => {
+        if (index >= ind1 && index <= ind2) return item;
+        else return (item = null);
+      });
+      // console.warn(newLinesArr);
+
+      if (isFullArr(newLinesArr)) {
+        newLinesArr.forEach((lineStr, lineNum) => {
+          const regex = new RegExp(`(?<=<)[A-Z]([^/>]+)(?=\\/>)`, `g`); // detect <App/> or <App-Nav/>
+
+          if (isDef(lineStr) && regex.test(lineStr)) {
+            const totalLength = lineStr.replace(/\s+$/gm, "").length; // remove right space
+            const actualStrLength = lineStr.trim().length;
+            const tagNameLength = lineStr.replace(/\<|\>|\//g, "").trim().length;
+            const start = lineStr[totalLength - actualStrLength];
+            const startIndex = lineStr.indexOf(start) + 1;
+            let endIndex = startIndex + tagNameLength;
+            const range = new vscode.Range(new vscode.Position(lineNum, startIndex), new vscode.Position(lineNum, endIndex));
+            chars.push(range);
+
+            // console.warn({ lineStr, lineNum });
+            // console.warn({totalLength});
+            // console.warn({actualStrLength});
+            // console.warn({tagNameLength});
+            // console.warn({start});
+            // console.warn({startIndex});
+            // console.warn({endIndex});
+            // console.warn({chars});
           }
-          single_lengths += single.length + 1;
         });
       }
     }
 
-    editor.setDecorations(tagInfo.decChar.decorator, tagInfo.decChar.chars);
+    editor.setDecorations(decType, chars);
   }
 };
 
 const activate = context => {
-  // init
   highlighter();
-
   // EVENTS
-  vscode.window.onDidChangeActiveTextEditor(editor => highlighter(), null, context.subscriptions);
-  vscode.workspace.onDidChangeTextDocument(e => highlighter(), null, context.subscriptions);
+  vscode.window.onDidChangeActiveTextEditor(() => highlighter(), null, context.subscriptions);
+  vscode.workspace.onDidChangeTextDocument(() => highlighter(), null, context.subscriptions);
 };
 
 const deactivate = () => {};
