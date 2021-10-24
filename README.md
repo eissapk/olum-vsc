@@ -4,6 +4,7 @@
 
 | Snippets |      Are     
 |----------|:-------------:
+| olum     |  Create olum instance
 | olumc    |  Create component
 | olumr    |  Create router   
 | olums    |  Create service
