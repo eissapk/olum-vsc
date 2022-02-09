@@ -4,6 +4,13 @@
 
 | Snippets |      Are     
 |----------|:-------------:
+| if       |  Create if statement
+| elif     |  Create else if statement
+| else     |  Create else statement
+| forin    |  Create for in loop
+| forof    |  Create for of loop
+| show     |  Create show statement
+| com      |  Create component tag
 | olum     |  Create olum instance
 | olumc    |  Create component
 | olumr    |  Create router   

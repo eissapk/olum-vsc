@@ -5,7 +5,7 @@
   "publisher": "eissapk",
   "icon": "assets/logo.png",
   "author": "Eissa Saber",
-  "version": "0.0.3",
+  "version": "0.4.0",
   "engines": {
     "vscode": "^0.10.5"
   },
@@ -16,7 +16,7 @@
   "activationEvents": [
     "*"
   ],
-  "main": "./highlighter.js",
+	"main": "bin/index.js",
   "contributes": {
     "grammars": [
       {
